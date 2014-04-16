@@ -132,6 +132,8 @@
 #include <queue>
 #include <string>
 
+#include <boost/shared_ptr.hpp>
+
 #include "metaprogramming.hxx"
 #include "multi_array.hxx"
 #include "threading.hxx"
@@ -163,6 +165,11 @@
 #define VIGRA_ASSERT_INSIDE(diff)
 #endif
 
+namespace std {
+
+    using boost::shared_ptr ;
+
+}
 
 namespace vigra {
 
