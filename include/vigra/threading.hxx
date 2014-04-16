@@ -58,6 +58,8 @@
 #ifdef VIGRA_NO_STD_THREADING
 #  include <boost/thread/thread.hpp>
 #  include <boost/thread/mutex.hpp>
+#  include <boost/thread/recursive_mutex.hpp>
+#  include <boost/thread/once.hpp>
 // #  include <boost/thread/shared_mutex.hpp>
 #  include <boost/thread/locks.hpp>
 #  if BOOST_VERSION >= 105300
