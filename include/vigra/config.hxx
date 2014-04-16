@@ -161,10 +161,21 @@
     // these warnings produce too many false positives to be useful
     #pragma GCC diagnostic ignored "-Wstrict-aliasing"  
     #pragma GCC diagnostic ignored "-Wshadow"  
-    
-    #if defined(__GXX_EXPERIMENTAL_CXX0X__) || __cplusplus >= 201103L
-        #define VIGRA_HAS_UNIQUE_PTR
-    #endif
+
+//    // clang
+//    #if defined(__has_include)
+//        #if __has_include(<memory>)
+//            #include <memory>
+//            #if __is_identifier(unique_ptr)
+//                #define VIGRA_HAS_UNIQUE_PTR
+//            #endif
+//        #endif
+//    #else
+//
+//        #if defined(__GXX_EXPERIMENTAL_CXX0X__) || __cplusplus >= 201103L
+//            #define VIGRA_HAS_UNIQUE_PTR
+//        #endif
+//    #endif
 
 #endif  // __GNUC__
 
