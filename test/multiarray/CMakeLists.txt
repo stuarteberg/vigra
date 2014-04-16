@@ -31,9 +31,9 @@ endif()
 IF(HDF5_FOUND)
     ADD_DEFINITIONS(-DHasHDF5 ${HDF5_CPPFLAGS})
     INCLUDE_DIRECTORIES(${HDF5_INCLUDE_DIR})
-    SET(MULTIARRAY_CHUNKED_LIBRARIES vigraimpex ${HDF5_LIBRARIES})
+    SET(MULTIARRAY_CHUNKED_LIBRARIES vigraimpex boost_thread boost_system ${HDF5_LIBRARIES})
 ELSE(TIFF_FOUND)
-    SET(MULTIARRAY_CHUNKED_LIBRARIES vigraimpex)
+    SET(MULTIARRAY_CHUNKED_LIBRARIES vigraimpex boost_thread boost_system)
 ENDIF()
 
 VIGRA_ADD_TEST(test_multiarray_chunked test_chunked.cxx 
