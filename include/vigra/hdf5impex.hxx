@@ -2093,7 +2093,7 @@ class HDF5File
                   TinyVector<MultiArrayIndex, N> const & shape, 
                   typename detail::HDF5TypeTraits<T>::value_type init = 
                                                      typename detail::HDF5TypeTraits<T>::value_type(), 
-                  TinyVector<MultiArrayIndex, N> const & chunkSize = TinyVector<MultiArrayIndex, N>(), 
+                  TinyVector<MultiArrayIndex, N> const & chunkSize = (TinyVector<MultiArrayIndex, N>()),
                   int compressionParameter = 0);
 
         // for backwards compatibility
