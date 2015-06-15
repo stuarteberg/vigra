@@ -934,6 +934,12 @@ public:
                 min_index_      = next - begin +1 ;
                 min_threshold_  = (double(column(*next,0)) + double(column(*(next +1), 0)))/2.0;
             }
+
+            // If right is pure, we can stop searching
+            if (lr == 0.0)
+            {
+            	break;
+            }
             iter = next +1 ;
             next = std::adjacent_find(iter, end, comp);
         }
