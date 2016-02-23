@@ -33,6 +33,49 @@ def test_labelMultiArray():
     _impl_test_labelMultiArray(numpy.uint8)
     _impl_test_labelMultiArray(numpy.uint32)
     _impl_test_labelMultiArray(numpy.float32)
+
+
+def _impl_test_applyMapping(dtype):
+    original = numpy.arange(100, dtype=dtype ).reshape(10,10)
+    mapping = { int(k) : int(k + 100) for k in original.flat[:] }
+
+    # Not in-place
+    remapped = vigra.analysis.applyMapping(original, mapping)
+    assert (remapped == original+100).all()
+
+    # in-place
+    original_copy = original.copy()
+    vigra.analysis.applyMapping(original_copy, mapping, out=original_copy)
+    assert (original_copy == original+100).all()
+
+    # Different dtypes
+    original_copy = original.copy().astype(numpy.uint64)
+    vigra.analysis.applyMapping(original_copy, mapping, out=original_copy)
+    assert (original_copy == original+100).all()
+
+    original_copy = original.copy().astype(numpy.uint8)
+    vigra.analysis.applyMapping(original_copy, mapping, out=original_copy)
+    assert (original_copy == original+100).all()
+
+    # Incomplete mapping
+    for i in range(10):
+        del mapping[i]
+
+    remapped = vigra.analysis.applyMapping(original, mapping, allow_incomplete_mapping=True)
+    assert (remapped[0] == original[0]).all()
+    assert (remapped[1:] == original[1:]+100).all()
     
+    try:
+        remapped = vigra.analysis.applyMapping(original, mapping, allow_incomplete_mapping=False)
+    except IndexError:
+        pass
+    else:
+        assert False, "Expected to get an exception due to the incomplete mapping!"
+
+def test_applyMapping():
+    _impl_test_applyMapping(numpy.uint8)
+    _impl_test_applyMapping(numpy.uint32)
+    _impl_test_applyMapping(numpy.uint64)
+
 def ok_():
     print(".", file=sys.stderr)
